@@ -15,12 +15,12 @@ def main():
                   [1., 0.],
                   [0., 1.]])
 
-    const = [('Aff', ((2, 4), 'Adam')),
-             ('Act', 'ReLU'),
-             ('Aff', ((4, 2), 'Adam'))]
+    const = [{'type': 'Aff', 'size': (2, 4), 'opt': 'Adam'},
+             {'type': 'Act', 'func': 'ReLU'},
+             {'type': 'Aff', 'size': (4, 2), 'opt': 'Adam'}]
 
-    #learner = neural.ConvNeuralNet(const)
-    learner = neural.NeuralNet([2, 10, 10, 2])
+    learner = neural.ConvNeuralNet(const)
+    # learner = neural.NeuralNet([2, 10, 10, 2])
     
     n, epoch, batch = 4, 1000, 4
 

@@ -61,21 +61,21 @@ class ConvNeuralNet(NeuralNet):
         self.const = const
         lastLayer = layer.InputLayer()
         for l in range(len(const)):
-            layerType, setting = const[l]
-            if layerType == 'Aff':
-                if setting[1] == 'Adam':
-                    opt = op.Adam(setting[0])
-                elif setting[1] == 'SGD':
+            layerInfo = const[l]
+            if layerInfo['type'] == 'Aff':
+                if layerInfo['opt'] == 'Adam':
+                    opt = op.Adam(layerInfo['size'])
+                elif layerInfo['opt'] == 'SGD':
                     opt = op.SGD()
 
-                lastLayer = layer.AffineLayer(setting[0], lastLayer, opt)
+                lastLayer = layer.AffineLayer(layerInfo['size'], lastLayer, opt)
             
-            elif layerType == 'Act':
-                if setting == 'ReLU':
+            elif layerInfo['type'] == 'Act':
+                if layerInfo['func'] == 'ReLU':
                     act = ac.ReLU()
-                elif setting == 'Sigmoid':
+                elif layerInfo['func'] == 'Sigmoid':
                     act = ac.Sigmoid()
-                elif setting == 'Softmax':
+                elif layerInfo['func'] == 'Softmax':
                     act = ac.Softmax()
 
                 lastLayer = layer.ActLayer(lastLayer.outNode, lastLayer, act)
