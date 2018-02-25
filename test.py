@@ -10,23 +10,27 @@ def main():
                   [1., 0.],
                   [0., 1.],
                   [1., 1.]])
-    ys = np.array([[0., 1.],
+    ts = np.array([[0., 1.],
                   [1., 0.],
                   [1., 0.],
                   [0., 1.]])
 
-    learner = neural.NeuralNet([2, 3, 4, 2], classification=False)
+    const = [{'type': 'Aff', 'size': (2, 4), 'opt': 'Adam'},
+             {'type': 'Act', 'func': 'ReLU'},
+             {'type': 'Aff', 'size': (4, 2), 'opt': 'Adam'}]
 
-    N, epoch, batch = 4, 1000, 4
-    e = learner.train(xs, ys, N, epoch, batch, 1, (0.9, 0.999, 0.01, 1e-8), log=True)
+    learner = neural.ConvNeuralNet(const)
+    # learner = neural.NeuralNet([2, 10, 10, 2])
+    
+    n, epoch, batch = 4, 1000, 4
+
+    e = learner.train(xs, ts, n, epoch, batch, log=True)
 
     for i in range(4):
-        print(learner.forward(xs[i]))
-
-    plt.clf()
-    plt.plot(e)
+        print(learner(xs[i]))
+    
+    plt.plot(e[10:])
     plt.show()
-
 
 if __name__ == "__main__":
     main()
