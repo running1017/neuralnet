@@ -29,12 +29,12 @@ def main():
     N = 10000
     epoch = 10
     batch = 100
-    const = [('Aff', ((784, 1000), 'Adam')),
-             ('Act', 'ReLU'),
-             ('Aff', ((1000, 1000), 'Adam')),
-             ('Act', 'ReLU'),
-             ('Aff', ((1000, 10), 'Adam')),
-             ('Act', 'Softmax')]
+    const = [{'type': 'Aff', 'size': (784, 1000), 'opt': 'Adam'},
+             {'type': 'Act', 'func': 'ReLU'},
+             {'type': 'Aff', 'size': (1000, 1000), 'opt': 'Adam'},
+             {'type': 'Act', 'func': 'ReLU'},
+             {'type': 'Aff', 'size': (1000, 10), 'opt': 'Adam'},
+             {'type': 'Act', 'func': 'Softmax'}]
     n = neural.ConvNeuralNet(const)
 
     print('N={0}, epoch={1}, batch={2}\nneural={3}'.format(N, epoch, batch, n.const))
